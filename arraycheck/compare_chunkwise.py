@@ -1,11 +1,8 @@
 import zarr
 import numpy as np
 import time
-import logging
 
 from .util import get_chunk_slicing
-
-logger = logging.getLogger(__name__)
 
 
 def compare_arrays(
