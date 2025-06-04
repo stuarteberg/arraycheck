@@ -11,5 +11,3 @@ def compare_arrays(array1_path: str, array2_path: str) -> bool:
     data2 = array2[:]
     return (data1 == data2).all()
 
-mask = (data1 == data2)
-
