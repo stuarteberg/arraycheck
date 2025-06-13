@@ -11,7 +11,6 @@ def compare_arrays(
     array1 = zarr.open(array1_path, mode='r')
     array2 = zarr.open(array2_path, mode='r')
 
-    chunk_count = 0
     for sl in get_chunk_slicing(array1.shape, chunk_width):
         chunk1 = array1[sl]
         chunk2 = array2[sl]

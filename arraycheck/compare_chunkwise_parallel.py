@@ -29,14 +29,13 @@ def compare_arrays(
     chunk_slicings = list(get_chunk_slicing(array1.shape, chunk_width))
     
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
-        future_to_index = {
-            executor.submit(compare_chunk_from_paths, array1_path, array2_path, sl): i
-            for i, sl in enumerate(chunk_slicings)
-        }
+        futures = [
+            executor.submit(compare_chunk_from_paths, array1_path, array2_path, sl)
+            for sl in chunk_slicings
+        ]
         
         completed = 0
-        for future in as_completed(future_to_index):
-            chunk_index = future_to_index[future]
+        for future in as_completed(futures):
             is_equal = future.result(timeout=30)
             if not is_equal:
                 return False
